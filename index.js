@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "https://ngcevent.netlify.app/",
+    origin: "https://ngcevent.netlify.app",
     credentials: true,
   })
 );
@@ -34,7 +34,8 @@ app.use(
     cookie: {
       maxAge: 1000 * 60 * 60 * 24,
       httpOnly: true,
-      secure: false,
+      secure: true,
+      sameSite: "None",
     },
   })
 );
