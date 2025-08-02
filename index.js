@@ -44,8 +44,8 @@ app.use(
     cookie: {
       maxAge: 1000 * 60 * 60 * 24,
       httpOnly: true,
-      secure: false, // ❗set to true in production with HTTPS
-      sameSite: "Lax",
+      secure: process.env.NODE_ENV === "production", // ✅ dynamic secure flag
+      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax", // ✅ required for cross-site cookie
     },
   })
 );
