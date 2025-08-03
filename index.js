@@ -1,10 +1,5 @@
 const dotenv = require("dotenv");
-// if (process.env.NODE_ENV === "production") {
-//   dotenv.config({ path: ".env.production" });
-// } else {
-//   dotenv.config();
-// }
-
+dotenv.config();
 const express = require("express");
 const cors = require("cors");
 const session = require("express-session");
@@ -16,8 +11,6 @@ const authRoutes = require("./src/routes/auth");
 const adminRoutes = require("./src/routes/admin");
 
 const PORT = process.env.PORT || 3000;
-const FRONTEND_URL = process.env.FRONTEND_URL;
-console.log(FRONTEND_URL);
 
 connectDB();
 
