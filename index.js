@@ -1,9 +1,9 @@
 const dotenv = require("dotenv");
-if (process.env.NODE_ENV === "production") {
-  dotenv.config({ path: ".env.production" });
-} else {
-  dotenv.config();
-}
+// if (process.env.NODE_ENV === "production") {
+//   dotenv.config({ path: ".env.production" });
+// } else {
+//   dotenv.config();
+// }
 
 const express = require("express");
 const cors = require("cors");
@@ -17,6 +17,7 @@ const adminRoutes = require("./src/routes/admin");
 
 const PORT = process.env.PORT || 3000;
 const FRONTEND_URL = process.env.FRONTEND_URL;
+console.log(FRONTEND_URL);
 
 connectDB();
 
@@ -27,7 +28,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: FRONTEND_URL,
+    origin: "https://ngcevent.netlify.app",
     credentials: true,
   })
 );
@@ -44,8 +45,8 @@ app.use(
     cookie: {
       maxAge: 1000 * 60 * 60 * 24,
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production", // ✅ dynamic secure flag
-      sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax", // ✅ required for cross-site cookie
+      secure: true, // ✅ dynamic secure flag
+      sameSite: "None", // ✅ required for cross-site cookie
     },
   })
 );
