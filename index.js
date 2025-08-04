@@ -9,9 +9,10 @@ const attendanceRoute = require("./src/routes/attendance");
 const connectDB = require("./src/config/db");
 const authRoutes = require("./src/routes/auth");
 const adminRoutes = require("./src/routes/admin");
+const isProduction = process.env.NODE_ENV === "production";
 
-const PORT = 3000;
-// const FRONTEND_URL = process.env.FRONTEND_URL;
+const PORT = process.env.PORT || 3000;
+const FRONTEND_URL = process.env.FRONTEND_URL;
 connectDB();
 
 const app = express();
@@ -21,7 +22,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "https://ngcevent.netlify.app",
+    origin: FRONTEND_URL,
     credentials: true,
   })
 );
@@ -38,8 +39,8 @@ app.use(
     cookie: {
       maxAge: 1000 * 60 * 60 * 24,
       httpOnly: true,
-      secure: true, // ✅ dynamic secure flag
-      sameSite: "None", // ✅ required for cross-site cookie
+      secure: isProduction, // ← add comma here
+      sameSite: isProduction ? "None" : "Lax",
     },
   })
 );
