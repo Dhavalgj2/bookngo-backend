@@ -1,5 +1,4 @@
-const dotenv = require("dotenv");
-dotenv.config();
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const session = require("express-session");
@@ -9,10 +8,9 @@ const attendanceRoute = require("./src/routes/attendance");
 const connectDB = require("./src/config/db");
 const authRoutes = require("./src/routes/auth");
 const adminRoutes = require("./src/routes/admin");
-const isProduction = process.env.NODE_ENV === "production";
 
-const PORT = process.env.PORT || 3000;
-const FRONTEND_URL = process.env.FRONTEND_URL;
+const PORT = 3000;
+
 connectDB();
 
 const app = express();
@@ -22,7 +20,8 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: FRONTEND_URL,
+    origin: "https://ngcevent.netlify.app",
+    // origin: "http://localhost:5173",
     credentials: true,
   })
 );
@@ -39,8 +38,8 @@ app.use(
     cookie: {
       maxAge: 1000 * 60 * 60 * 24,
       httpOnly: true,
-      secure: isProduction, // ← add comma here
-      sameSite: isProduction ? "None" : "Lax",
+      secure: true, // ← add comma here
+      sameSite: "None",
     },
   })
 );
