@@ -11,7 +11,7 @@ const authRoutes = require("./src/routes/auth");
 const adminRoutes = require("./src/routes/admin");
 
 const PORT = process.env.PORT || 3000;
-
+const FRONTEND_URL = process.env.FRONTEND_URL;
 connectDB();
 
 const app = express();
@@ -21,7 +21,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "https://ngcevent.netlify.app",
+    origin: FRONTEND_URL,
     credentials: true,
   })
 );
